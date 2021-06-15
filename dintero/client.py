@@ -18,17 +18,7 @@ _default_headers = {
 }
 
 
-class AuthError(Exception):
-    def __init__(self, message, status_code, headers, body):
-        self.message = message
-        self.status_code = status_code
-        self.headers = headers
-        self.body = body
-
-    def __str__(self):
-        return self.message + ' ' + str(self.status_code) + ' ' + self.body
-
-class InvalidRequestBody(Exception):
+class DinteroException(Exception):
     def __init__(self, message, status_code, headers, body):
         self.message = message
         self.status_code = status_code
@@ -39,7 +29,15 @@ class InvalidRequestBody(Exception):
         return self.message + ' ' + str(self.status_code) + ' ' + self.body
 
 
-class UnexpectedError(Exception):
+class AuthError(DinteroException):
+    pass
+
+
+class InvalidRequestBody(DinteroException):
+    pass
+
+
+class UnexpectedError(DinteroException):
     pass
 
 
@@ -64,22 +62,24 @@ def _get_dintero_auth_token():
     global _auth_token_expires
     if _auth_token and _auth_token_expires > time.time():
         return _auth_token
+    url = f'{_api_url}/v1/accounts/{_dintero_account_id}/auth/token'
+    payload = {
+        'grant_type': 'client_credentials',
+        'audience': f'{_api_url}/v1/accounts/{_dintero_account_id}'
+    }
     response = requests.post(
-        f'{_api_url}/v1/accounts/{_dintero_account_id}/auth/token',
+        url,
         auth=requests.auth.HTTPBasicAuth(_dintero_api_client_key, _dintero_api_client_secret),
         headers={
             'Content-Type': 'application/json',
         },
-        data=json.dumps({
-            'grant_type': 'client_credentials',
-            'audience': f'https://api.dintero.com/v1/accounts/{_dintero_account_id}'
-        })
+        data=json.dumps(payload)
     )
     _verify_response(response, 200)
     auth_token_response = response.json()
     _auth_token = auth_token_response['access_token']
     _buffer = 60 * 10
-    _auth_token_expires = time.time() + auth_token_response['expires_in'] - buffer
+    _auth_token_expires = time.time() + auth_token_response['expires_in'] - _buffer
     return _auth_token
 
 
@@ -105,7 +105,7 @@ def _verify_response(response, expected_status_code):
             body=response.text
         )
 
-    if response != expected_status_code:
+    if response.status_code != expected_status_code:
         raise UnexpectedError(
             "Received unexpected server response",
             status_code=response.status_code,
