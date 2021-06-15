@@ -13,7 +13,7 @@ if "DINTERO_CHECKOUT_URL" in os.environ:
     client._checkout_url = os.environ.get('DINTERO_CHECKOUT_URL')
 
 client.init(account_id, client_id, client_secret, 'example', '1.0.0')
-client.post_session({
+session = client.post_session({
     "url": {
         "return_url": "https://example.com/accept",
         "callback_url": "https://example.com/callback"
@@ -36,3 +36,5 @@ client.post_session({
     },
     "profile_id": profile_id
 })
+
+print(session)
