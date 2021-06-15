@@ -76,9 +76,10 @@ def _get_dintero_auth_token():
         })
     )
     _verify_response(response, 200)
-    _auth_token = response.json()['token']
+    auth_token_response = response.json()
+    _auth_token = auth_token_response['access_token']
     _buffer = 60 * 10
-    _auth_token_expires = time.time() + auth_token_response.expires_in - buffer
+    _auth_token_expires = time.time() + auth_token_response['expires_in'] - buffer
     return _auth_token
 
 
