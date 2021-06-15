@@ -1,4 +1,4 @@
-from dintero import client
+from dintero import Dintero
 import os
 
 account_id = os.environ.get('DINTERO_ACCOUNT_ID')
@@ -6,14 +6,24 @@ client_id = os.environ.get("DINTERO_CLIENT_ID")
 client_secret = os.environ.get("DINTERO_CLIENT_SECRET")
 profile_id = os.environ.get("DINTERO_PROFILE_ID")
 
+api_url = 'https://api.dintero.com'
 if "DINTERO_API_URL" in os.environ:
-    client._api_url = os.environ.get('DINTERO_API_URL')
+    api_url = os.environ.get('DINTERO_API_URL')
 
+checkout_url = 'https://checkout.dintero.com'
 if "DINTERO_CHECKOUT_URL" in os.environ:
-    client._checkout_url = os.environ.get('DINTERO_CHECKOUT_URL')
+    checkout_url = os.environ.get('DINTERO_CHECKOUT_URL')
 
-client.init(account_id, client_id, client_secret, 'example', '1.0.0')
-session = client.post_session({
+dintero = Dintero(
+    account_id,
+    client_id,
+    client_secret,
+    'example-app',
+    '0.0.0',
+    api_url,
+    checkout_url)
+checkout = dintero.checkout()
+session = checkout.post_session({
     "url": {
         "return_url": "https://example.com/accept",
         "callback_url": "https://example.com/callback"
