@@ -19,7 +19,7 @@ easy_install dintero
 
 ## Setting up a Dintero Account
 
-Sign up for Stripe at https://onboarding.dintero.com.
+Sign up for Dintero at https://onboarding.dintero.com.
 
 To create a client, use: https://docs.dintero.com/docs/checkout-client/
 
