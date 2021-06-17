@@ -6,7 +6,7 @@ class DinteroException(Exception):
         self.body = body
 
     def __str__(self):
-        return self.message + ' ' + str(self.status_code) + ' ' + self.body
+        return self.message + " " + str(self.status_code) + " " + self.body
 
 
 class AuthError(DinteroException):
