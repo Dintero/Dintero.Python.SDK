@@ -8,10 +8,10 @@ from dintero.error import InvalidRequestBody, AuthError, UnexpectedError
 from dintero.types import Item
 
 _default_headers = {
-    'Dintero-System-Name': 'python-application',
-    'Dintero-System-Version': '0.0.0',
-    'Dintero-System-Plugin-Name': 'python-sdk',
-    'Dintero-System-Plugin-Version': '0.0.0'
+    "Dintero-System-Name": "python-application",
+    "Dintero-System-Version": "0.0.0",
+    "Dintero-System-Plugin-Name": "python-sdk",
+    "Dintero-System-Plugin-Version": "0.0.0",
 }
 
 
@@ -22,14 +22,16 @@ class Checkout:
     Contains methods to interact with the Dintero Checkout API
     """
 
-    def __init__(self,
-                 api_url,
-                 checkout_url,
-                 account_id,
-                 client_id,
-                 client_secret,
-                 application_name,
-                 application_version):
+    def __init__(
+        self,
+        api_url,
+        checkout_url,
+        account_id,
+        client_id,
+        client_secret,
+        application_name,
+        application_version,
+    ):
         self.api_url = api_url
         self.checkout_url = checkout_url
         self.account_id = account_id
@@ -38,8 +40,8 @@ class Checkout:
         self.auth_token_expires = 0
         self.auth_token = None
         custom_headers = {
-            'Dintero-System-Name': application_name,
-            'Dintero-System-Version': application_version
+            "Dintero-System-Name": application_name,
+            "Dintero-System-Version": application_version,
         }
         _default_headers.update(custom_headers)
 
@@ -59,32 +61,36 @@ class Checkout:
         :param session: The payload of the session to create
         :return: The id of the session and an URL to redirect to
         """
-        url = f'{self.checkout_url}/v1/sessions'
-        if 'profile_id' in session and session['profile_id']:
+        url = f"{self.checkout_url}/v1/sessions"
+        if "profile_id" in session and session["profile_id"]:
             # Override and use sessions-profile endpoint
-            url = f'{self.checkout_url}/v1/sessions-profile'
+            url = f"{self.checkout_url}/v1/sessions-profile"
 
         response = requests.post(
             url,
-            headers=({
-                'Authorization': self._get_dintero_auth_header(),
-                'Content-Type': 'application/json',
-                **_default_headers,
-            }),
-            data=json.dumps(session)
+            headers=(
+                {
+                    "Authorization": self._get_dintero_auth_header(),
+                    "Content-Type": "application/json",
+                    **_default_headers,
+                }
+            ),
+            data=json.dumps(session),
         )
         _verify_response(response, 200)
         return response.json()
 
     def get_session(self, session_id: str):
-        url = f'{self.checkout_url}/v1/sessions/{session_id}'
+        url = f"{self.checkout_url}/v1/sessions/{session_id}"
         response = requests.get(
             url,
-            headers=({
-                'Authorization': self._get_dintero_auth_header(),
-                'Content-Type': 'application/json',
-                **_default_headers,
-            })
+            headers=(
+                {
+                    "Authorization": self._get_dintero_auth_header(),
+                    "Content-Type": "application/json",
+                    **_default_headers,
+                }
+            ),
         )
         _verify_response(response, 200)
         return response.json()
@@ -100,14 +106,16 @@ class Checkout:
         :param transaction_id: The ID of the transaction
         :return: The transaction
         """
-        url = f'{self.checkout_url}/v1/transactions/{transaction_id}'
+        url = f"{self.checkout_url}/v1/transactions/{transaction_id}"
         response = requests.get(
             url,
-            headers=({
-                'Authorization': self._get_dintero_auth_header(),
-                'Content-Type': 'application/json',
-                **_default_headers,
-            })
+            headers=(
+                {
+                    "Authorization": self._get_dintero_auth_header(),
+                    "Content-Type": "application/json",
+                    **_default_headers,
+                }
+            ),
         )
         _verify_response(response, 200)
         return response.json()
@@ -127,24 +135,26 @@ class Checkout:
         :param transaction_id: ID of the transaction to void
         :return: The updated transaction
         """
-        url = f'{self.checkout_url}/v1/transactions/{transaction_id}/void'
+        url = f"{self.checkout_url}/v1/transactions/{transaction_id}/void"
         response = requests.post(
             url,
-            headers=({
-                'Authorization': self._get_dintero_auth_header(),
-                'Content-Type': 'application/json',
-                **_default_headers,
-            })
+            headers=(
+                {
+                    "Authorization": self._get_dintero_auth_header(),
+                    "Content-Type": "application/json",
+                    **_default_headers,
+                }
+            ),
         )
         _verify_response(response, 200)
         return response.json()
 
     def capture_transaction(
-            self,
-            transaction_id: str,
-            amount: int,
-            items: List[Item],
-            capture_reference: Union[str, None] = None
+        self,
+        transaction_id: str,
+        amount: int,
+        items: List[Item],
+        capture_reference: Union[str, None] = None,
     ):
         """
         Captures a transaction that is either authorized or partially captured
@@ -155,33 +165,35 @@ class Checkout:
         :param capture_reference: Optional unique reference to the capture event
         :return: The updated transaction
         """
-        url = f'{self.checkout_url}/v1/transactions/{transaction_id}/capture'
+        url = f"{self.checkout_url}/v1/transactions/{transaction_id}/capture"
 
         payload = {
-            'amount': amount,
-            'items': items,
+            "amount": amount,
+            "items": items,
         }
         if capture_reference is not None:
-            payload['capture_reference'] = capture_reference
+            payload["capture_reference"] = capture_reference
         response = requests.post(
             url,
-            headers=({
-                'Authorization': self._get_dintero_auth_header(),
-                'Content-Type': 'application/json',
-                **_default_headers,
-            }),
-            data=json.dumps(payload)
+            headers=(
+                {
+                    "Authorization": self._get_dintero_auth_header(),
+                    "Content-Type": "application/json",
+                    **_default_headers,
+                }
+            ),
+            data=json.dumps(payload),
         )
         _verify_response(response, 200)
         return response.json()
 
     def refund_transaction(
-            self,
-            transaction_id: str,
-            amount: int,
-            items: List[Item],
-            refund_reference: Union[str, None] = None,
-            reason: Union[str, None] = None,
+        self,
+        transaction_id: str,
+        amount: int,
+        items: List[Item],
+        refund_reference: Union[str, None] = None,
+        reason: Union[str, None] = None,
     ):
         """
         Once a transaction has been successfully captured, a refund operation is available. Like other operations, refund can be partial or total
@@ -193,24 +205,26 @@ class Checkout:
         :param reason: Optional free text field to describe the refund reason
         :return: The updated transaction
         """
-        url = f'{self.checkout_url}/v1/transactions/{transaction_id}/refund'
+        url = f"{self.checkout_url}/v1/transactions/{transaction_id}/refund"
 
         payload = {
-            'amount': amount,
-            'items': items,
+            "amount": amount,
+            "items": items,
         }
         if refund_reference is not None:
-            payload['refund_reference'] = refund_reference
+            payload["refund_reference"] = refund_reference
         if reason is not None:
-            payload['reason'] = reason
+            payload["reason"] = reason
         response = requests.post(
             url,
-            headers=({
-                'Authorization': self._get_dintero_auth_header(),
-                'Content-Type': 'application/json',
-                **_default_headers,
-            }),
-            data=json.dumps(payload)
+            headers=(
+                {
+                    "Authorization": self._get_dintero_auth_header(),
+                    "Content-Type": "application/json",
+                    **_default_headers,
+                }
+            ),
+            data=json.dumps(payload),
         )
         _verify_response(response, 200)
         return response.json()
@@ -219,29 +233,33 @@ class Checkout:
         if self.auth_token and self.auth_token_expires > time.time():
             return self.auth_token
 
-        url = f'{self.api_url}/v1/accounts/{self.account_id}/auth/token'
+        url = f"{self.api_url}/v1/accounts/{self.account_id}/auth/token"
         payload = {
-            'grant_type': 'client_credentials',
-            'audience': f'{self.api_url}/v1/accounts/{self.account_id}'
+            "grant_type": "client_credentials",
+            "audience": f"{self.api_url}/v1/accounts/{self.account_id}",
         }
         response = requests.post(
             url,
-            auth=requests.auth.HTTPBasicAuth(self.client_id, self.client_secret),
+            auth=requests.auth.HTTPBasicAuth(
+                self.client_id, self.client_secret
+            ),
             headers={
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            data=json.dumps(payload)
+            data=json.dumps(payload),
         )
         _verify_response(response, 200)
         auth_token_response = response.json()
-        self.auth_token = auth_token_response['access_token']
+        self.auth_token = auth_token_response["access_token"]
         _buffer = 60 * 10
-        self.auth_token_expires = time.time() + auth_token_response['expires_in'] - _buffer
+        self.auth_token_expires = (
+            time.time() + auth_token_response["expires_in"] - _buffer
+        )
         return self.auth_token
 
     def _get_dintero_auth_header(self):
         token = self._get_dintero_auth_token()
-        return f'Bearer {token}'
+        return f"Bearer {token}"
 
 
 def _verify_response(response, expected_status_code):
@@ -250,7 +268,7 @@ def _verify_response(response, expected_status_code):
             "Body is malformed",
             status_code=response.status_code,
             headers=response.headers,
-            body=response.text
+            body=response.text,
         )
 
     if response.status_code in [401, 403]:
@@ -258,7 +276,7 @@ def _verify_response(response, expected_status_code):
             "Auth failed",
             status_code=response.status_code,
             headers=response.headers,
-            body=response.text
+            body=response.text,
         )
 
     if response.status_code != expected_status_code:
@@ -266,5 +284,5 @@ def _verify_response(response, expected_status_code):
             "Received unexpected server response",
             status_code=response.status_code,
             headers=response.headers,
-            body=response.text
+            body=response.text,
         )

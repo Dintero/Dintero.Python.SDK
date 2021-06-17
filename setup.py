@@ -2,18 +2,28 @@ import os
 from codecs import open
 from setuptools import setup, find_packages
 
+# here = os.path.abspath(os.path.dirname(__file__))
+#
+# os.chdir(here)
+#
+# with open(
+#     os.path.join(here, "setup_description.md"), "r", encoding="utf-8"
+# ) as fp:
+#     long_description = fp.read()
+#
+# version_contents = {}
+# with open(os.path.join(here, "dintero", "version.py"), encoding="utf-8") as f:
+#     exec(f.read(), version_contents)
 
-here = os.path.abspath(os.path.dirname(__file__))
 
-os.chdir(here)
+this_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
+version_contents = {}
 
 with open(
-        os.path.join(here, "setup_description.md"), "r", encoding="utf-8"
-) as fp:
-    long_description = fp.read()
-
-version_contents = {}
-with open(os.path.join(here, "dintero", "version.py"), encoding="utf-8") as f:
+    os.path.join(this_directory, "dintero", "version.py"), encoding="utf-8"
+) as f:
     exec(f.read(), version_contents)
 
 setup(
