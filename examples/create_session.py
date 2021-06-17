@@ -18,12 +18,10 @@ dintero = Dintero(
     account_id,
     client_id,
     client_secret,
-    'example-app',
-    '0.0.0',
-    api_url,
-    checkout_url)
+    api_url=api_url,
+    checkout_url=checkout_url)
 checkout = dintero.checkout()
-session = checkout.post_session({
+session_info = checkout.post_session({
     "url": {
         "return_url": "https://example.com/accept",
         "callback_url": "https://example.com/callback"
@@ -46,5 +44,7 @@ session = checkout.post_session({
     },
     "profile_id": profile_id
 })
+
+session = checkout.get_session(session_info['id'])
 
 print(session)

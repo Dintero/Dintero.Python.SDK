@@ -83,6 +83,19 @@ class Checkout:
         _verify_response(response, 200)
         return response.json()
 
+    def get_session(self, session_id: str):
+        url = f'{self.checkout_url}/v1/sessions/{session_id}'
+        response = requests.get(
+            url,
+            headers=({
+                'Authorization': self._get_dintero_auth_header(),
+                'Content-Type': 'application/json',
+                **_default_headers,
+            })
+        )
+        _verify_response(response, 200)
+        return response.json()
+
 
 def _verify_response(response, expected_status_code):
     if response.status_code == 400:
