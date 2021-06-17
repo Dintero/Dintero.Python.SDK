@@ -24,7 +24,6 @@ setup(
     license="MIT",
     keywords="dintero api payments",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    package_data={"dintero": ["data/ca-certificates.crt"]},
     zip_safe=False,
     install_requires=[
         'requests >= 2.20; python_version >= "3.0"',
