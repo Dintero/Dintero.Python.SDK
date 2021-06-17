@@ -24,13 +24,12 @@ setup(
     license="MIT",
     keywords="dintero api payments",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    package_data={"dintero": ["data/ca-certificates.crt"]},
     zip_safe=False,
     install_requires=[
         'requests >= 2.20; python_version >= "3.0"',
         'requests[security] >= 2.20; python_version < "3.0"',
     ],
-    python_requires=">=2, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
+    python_requires=">=3, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     project_urls={
         "Bug Tracker": "https://github.com/dintero/dintero-python/issues",
         "Documentation": "https://docs.dintero.com",

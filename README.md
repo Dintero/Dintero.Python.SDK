@@ -63,4 +63,6 @@ session_info = checkout.post_session({
     },
     "profile_id": profile_id
 })
+
+print(session_info)
 ```
