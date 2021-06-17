@@ -23,14 +23,14 @@ class Checkout:
     """
 
     def __init__(
-            self,
-            api_url,
-            checkout_url,
-            account_id,
-            client_id,
-            client_secret,
-            application_name,
-            application_version,
+        self,
+        api_url,
+        checkout_url,
+        account_id,
+        client_id,
+        client_secret,
+        application_name,
+        application_version,
     ):
         self.api_url = api_url
         self.checkout_url = checkout_url
@@ -153,11 +153,11 @@ class Checkout:
         return response.json()
 
     def capture_transaction(
-            self,
-            transaction_id: str,
-            amount: int,
-            items: List[Item],
-            capture_reference: Union[str, None] = None,
+        self,
+        transaction_id: str,
+        amount: int,
+        items: List[Item],
+        capture_reference: Union[str, None] = None,
     ):
         """
         Captures a transaction that is either authorized or partially captured
@@ -194,12 +194,12 @@ class Checkout:
         return response.json()
 
     def refund_transaction(
-            self,
-            transaction_id: str,
-            amount: int,
-            items: List[Item],
-            refund_reference: Union[str, None] = None,
-            reason: Union[str, None] = None,
+        self,
+        transaction_id: str,
+        amount: int,
+        items: List[Item],
+        refund_reference: Union[str, None] = None,
+        reason: Union[str, None] = None,
     ):
         """
         Once a transaction has been successfully captured, a refund operation
@@ -261,7 +261,7 @@ class Checkout:
         self.auth_token = auth_token_response["access_token"]
         _buffer = 60 * 10
         self.auth_token_expires = (
-                time.time() + auth_token_response["expires_in"] - _buffer
+            time.time() + auth_token_response["expires_in"] - _buffer
         )
         return self.auth_token
 
