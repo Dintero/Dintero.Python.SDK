@@ -20,7 +20,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Dintero",
     author_email="integration@dintero.com",
-    url="https://github.com/dinter/dintero-python",
+    url="https://github.com/dintero/Dintero.Python.SDK",
     license="MIT",
     keywords="dintero api payments",
     packages=find_packages(exclude=["tests", "tests.*"]),
@@ -31,9 +31,9 @@ setup(
     ],
     python_requires=">=3, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     project_urls={
-        "Bug Tracker": "https://github.com/dintero/dintero-python/issues",
+        "Bug Tracker": "https://github.com/dintero/Dintero.Python.SDK/issues",
         "Documentation": "https://docs.dintero.com",
-        "Source Code": "https://github.com/dintero/dintero-python",
+        "Source Code": "https://github.com/dintero/Dintero.Python.SDK",
     },
     classifiers=[
         "Development Status :: 1 - Planning",
