@@ -6,20 +6,10 @@ client_id = os.environ.get("DINTERO_CLIENT_ID")
 client_secret = os.environ.get("DINTERO_CLIENT_SECRET")
 profile_id = os.environ.get("DINTERO_PROFILE_ID")
 
-api_url = 'https://api.dintero.com'
-if "DINTERO_API_URL" in os.environ:
-    api_url = os.environ.get('DINTERO_API_URL')
-
-checkout_url = 'https://checkout.dintero.com'
-if "DINTERO_CHECKOUT_URL" in os.environ:
-    checkout_url = os.environ.get('DINTERO_CHECKOUT_URL')
-
 dintero = Dintero(
     account_id,
     client_id,
-    client_secret,
-    api_url=api_url,
-    checkout_url=checkout_url)
+    client_secret)
 checkout = dintero.checkout()
 session_info = checkout.post_session({
     "url": {
@@ -47,4 +37,5 @@ session_info = checkout.post_session({
 
 session = checkout.get_session(session_info['id'])
 
+print(session_info)
 print(session)
