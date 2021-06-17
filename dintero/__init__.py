@@ -1,5 +1,6 @@
 from dintero.checkout import Checkout
 
+
 class Dintero:
     def __init__(self,
                  account_id,
