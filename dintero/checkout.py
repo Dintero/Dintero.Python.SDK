@@ -23,14 +23,14 @@ class Checkout:
     """
 
     def __init__(
-        self,
-        api_url,
-        checkout_url,
-        account_id,
-        client_id,
-        client_secret,
-        application_name,
-        application_version,
+            self,
+            api_url,
+            checkout_url,
+            account_id,
+            client_id,
+            client_secret,
+            application_name,
+            application_version,
     ):
         self.api_url = api_url
         self.checkout_url = checkout_url
@@ -49,14 +49,12 @@ class Checkout:
         """
         Create a session
 
-        Create a corresponding Checkout Session for an order placed in your system
+        Create a corresponding Checkout Session for an order from your system
 
         A session can have multiple payment types.
 
-        If the session contains a profile_id, the configuration from the profile_id will be used.
-
-        See https://docs.dintero.com/checkout-api.html#operation/checkout_session_profile_post for the
-        updated session-body
+        If the session contains a profile_id, the configuration from
+        the profile_id will be used.
 
         :param session: The payload of the session to create
         :return: The id of the session and an URL to redirect to
@@ -99,9 +97,11 @@ class Checkout:
         """
         Get a transaction by its transaction_id
 
-        When a session is paid, it will contain a transaction_id. A session can only have one transaction.
+        When a session is paid, it will contain a transaction_id.
+        A session can only have one transaction.
 
-        The transaction_id will also be sent in the return_url and callback_url.
+        The transaction_id will also be sent in the return_url and
+        callback_url.
 
         :param transaction_id: The ID of the transaction
         :return: The transaction
@@ -123,14 +123,17 @@ class Checkout:
     def void_transaction(self, transaction_id: str):
         """Voiding transactions
 
-        At any moment before capture of a transaction, it is possible to cancel an authorization.
+        At any moment before capture of a transaction,
+        it is possible to cancel an authorization.
         This operation is called voiding.
 
         Void on part capture
 
-        Calling void after a part capture will cancel the difference between the captured and authorized amount.
+        Calling void after a part capture will cancel the difference between
+        the captured and authorized amount.
 
-        Void on part capture is only supported on payex.creditcard transactions
+        Void on part capture is only supported on payex.creditcard
+        transactions
 
         :param transaction_id: ID of the transaction to void
         :return: The updated transaction
@@ -150,19 +153,22 @@ class Checkout:
         return response.json()
 
     def capture_transaction(
-        self,
-        transaction_id: str,
-        amount: int,
-        items: List[Item],
-        capture_reference: Union[str, None] = None,
+            self,
+            transaction_id: str,
+            amount: int,
+            items: List[Item],
+            capture_reference: Union[str, None] = None,
     ):
         """
         Captures a transaction that is either authorized or partially captured
 
         :param transaction_id: The ID of the transaction
-        :param amount: The amount to capture, up to the full amount of the transaction
-        :param items: The items to capture, must correspond with the items of the session
-        :param capture_reference: Optional unique reference to the capture event
+        :param amount: The amount to capture, up to the full
+        amount of the transaction
+        :param items: The items to capture, must correspond with the
+        items of the session
+        :param capture_reference: Optional unique reference to
+        the capture event
         :return: The updated transaction
         """
         url = f"{self.checkout_url}/v1/transactions/{transaction_id}/capture"
@@ -188,19 +194,21 @@ class Checkout:
         return response.json()
 
     def refund_transaction(
-        self,
-        transaction_id: str,
-        amount: int,
-        items: List[Item],
-        refund_reference: Union[str, None] = None,
-        reason: Union[str, None] = None,
+            self,
+            transaction_id: str,
+            amount: int,
+            items: List[Item],
+            refund_reference: Union[str, None] = None,
+            reason: Union[str, None] = None,
     ):
         """
-        Once a transaction has been successfully captured, a refund operation is available. Like other operations, refund can be partial or total
+        Once a transaction has been successfully captured, a refund operation
+        is available. Like other operations, refund can be partial or total
 
         :param transaction_id: The ID of the transaction
-        :param amount: The amount to refund, up to the captured amount of the transaction
-        :param items: The items to refund, must correspond with the items of the session
+        :param amount: The amount to refund, up to the captured amount
+        :param items: The items to refund, must correspond with the items
+        of the session
         :param refund_reference: Optional unique reference to the refund event
         :param reason: Optional free text field to describe the refund reason
         :return: The updated transaction
@@ -253,7 +261,7 @@ class Checkout:
         self.auth_token = auth_token_response["access_token"]
         _buffer = 60 * 10
         self.auth_token_expires = (
-            time.time() + auth_token_response["expires_in"] - _buffer
+                time.time() + auth_token_response["expires_in"] - _buffer
         )
         return self.auth_token
 
