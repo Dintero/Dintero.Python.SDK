@@ -13,7 +13,7 @@ pip install --upgrade dintero
 
 ### Requirements
 
-* Python 3.4+
+* Python 3.6+
 
 ## Using the SDK
 
@@ -40,7 +40,7 @@ dintero = Dintero(
     client_id,
     client_secret)
 checkout = dintero.checkout()
-session_info = checkout.post_session({
+session_info = checkout.create_session({
     "url": {
         "return_url": "https://example.com/accept",
         "callback_url": "https://example.com/callback"
