@@ -28,6 +28,7 @@ setup(
     install_requires=[
         'requests >= 2.20; python_version >= "3.0"',
         'requests[security] >= 2.20; python_version < "3.0"',
+        'typing_extensions >= 3.10'
     ],
     python_requires=">=3, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     project_urls={
