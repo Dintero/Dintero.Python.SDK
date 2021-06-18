@@ -1,5 +1,7 @@
 # Dintero Python SDK
 
+![Build Status](https://github.com/dintero/Dintero.Python.SKD/actions/workflows/python-package.yml/badge.svg)
+
 With the Dintero Python SDK you can easily interact with the Dintero API to create and manage payments through the
 Checkout API, and in the future also use the many other APIs we've got.
 
