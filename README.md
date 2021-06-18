@@ -33,7 +33,7 @@ account_id = 'T12345678'
 client_id = '72e023b1-aeda-498e-b141-4669528c44b9'
 client_secret = '125f9f0a-e240-4bfd-be57-0086343bf0e4'
 
-profile_id = 'P12345678.46dP6T4F1mUXYPeYKYc5Gj'
+profile_id = 'T12345678.46dP6T4F1mUXYPeYKYc5Gj'
 
 dintero = Dintero(
     account_id,
