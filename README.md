@@ -13,7 +13,7 @@ pip install --upgrade dintero
 
 ### Requirements
 
-* Python 3.4+
+* Python 3.6+
 
 ## Using the SDK
 
