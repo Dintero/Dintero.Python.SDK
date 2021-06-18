@@ -23,7 +23,7 @@ class Dintero:
 
     def checkout(self):
         if self.checkout_client is None:
-            return Checkout(
+            self.checkout_client = Checkout(
                 self.api_url,
                 self.checkout_url,
                 self.account_id,

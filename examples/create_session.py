@@ -8,7 +8,7 @@ profile_id = os.environ.get("DINTERO_PROFILE_ID")
 
 dintero = Dintero(account_id, client_id, client_secret)
 checkout = dintero.checkout()
-session_info = checkout.post_session(
+session_info = checkout.create_session(
     {
         "url": {
             "return_url": "https://example.com/accept",

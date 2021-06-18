@@ -44,7 +44,7 @@ class Checkout:
         }
         _default_headers.update(custom_headers)
 
-    def post_session(self, session):
+    def create_session(self, session):
         """
         Create a session
 
