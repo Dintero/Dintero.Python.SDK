@@ -29,7 +29,7 @@ setup(
         'requests >= 2.20; python_version >= "3.0"',
         'typing_extensions >= 3.10; python_version >= "3.0"',
     ],
-    python_requires=">=3, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
+    python_requires=">=3.6",
     project_urls={
         "Bug Tracker": "https://github.com/dintero/Dintero.Python.SDK/issues",
         "Documentation": "https://docs.dintero.com",
