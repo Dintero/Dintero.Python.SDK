@@ -5,6 +5,7 @@ import time
 
 from dintero.error import InvalidRequestBody, AuthError, UnexpectedError
 from dintero.types import Item
+from dintero.validator import validate_session
 
 _default_headers = {
     "Dintero-System-Name": "python-application",
@@ -58,6 +59,7 @@ class Checkout:
         :param session: The payload of the session to create
         :return: The id of the session and an URL to redirect to
         """
+        validate_session(session)
         url = f"{self.checkout_url}/v1/sessions"
         if "profile_id" in session and session["profile_id"]:
             # Override and use sessions-profile endpoint

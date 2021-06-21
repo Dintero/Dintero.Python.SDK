@@ -19,3 +19,16 @@ class InvalidRequestBody(DinteroException):
 
 class UnexpectedError(DinteroException):
     pass
+
+
+class DinteroClientError(Exception):
+    pass
+
+
+class InvalidFieldError(DinteroClientError):
+    def __init__(self, message, field):
+        self.message = message
+        self.field = field
+
+    def __str__(self):
+        return self.message + " " + str(self.field)
