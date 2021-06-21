@@ -14,15 +14,10 @@ class TestDinteroCheckout(object):
             "mock_client_id",
             "mock_client_secret",
             "test",
-            "0.0.0"
+            "0.0.0",
         )
         with pytest.raises(InvalidFieldError) as err:
-            checkout.create_session({
-                'order': {
-                    'amount': 10,
-                    'items': [{
-                        'amount': 5
-                    }]
-                }
-            })
+            checkout.create_session(
+                {"order": {"amount": 10, "items": [{"amount": 5}]}}
+            )
         assert err.value.field == "order.amount"
