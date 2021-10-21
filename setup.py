@@ -29,6 +29,11 @@ setup(
         'requests >= 2.20; python_version >= "3.0"',
         'typing_extensions >= 3.10; python_version >= "3.0"',
     ],
+    extras_require={
+        "dev": [
+            "pytest",
+        ]
+    },
     python_requires=">=3.6",
     project_urls={
         "Bug Tracker": "https://github.com/dintero/Dintero.Python.SDK/issues",
