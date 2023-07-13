@@ -11,51 +11,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.6
+          python-version: '3.10'
+          cache: "pip"
+          cache-dependency-path: "setup.py"
       - name: lint
         run: make lint
 
   fmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: '3.10'
+          cache: "pip"
+          cache-dependency-path: "setup.py"
       - name: fmtcheck
         run: make fmtcheck
 
   build:
-    runs-on: ubuntu-latest
+    # Specific ubuntu version to support python 3.6 testing
+    # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for details
+    # move to ubuntu-latest when we drop 3.6
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9, '3.10.0-beta.2']
+        python-version: [3.6, 3.7, 3.8, 3.9, '3.10']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pip"
+          cache-dependency-path: "setup.py"
+
       - name: Upgrade pip and virtualenv to latest
         run: pip install --upgrade pip virtualenv
-      - name: Get pip cache dir
-        id: pip-cache
-        run: |
-          python -c "from pip._internal.locations import USER_CACHE_DIR; print('::set-output name=dir::' + USER_CACHE_DIR)"
-      - name: pip cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.pip-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
       - name: Test with pytest
         run: make test
