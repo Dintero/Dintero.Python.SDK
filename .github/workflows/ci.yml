@@ -31,7 +31,10 @@ jobs:
         run: make fmtcheck
 
   build:
-    runs-on: ubuntu-latest
+    # Specific ubuntu version to support python 3.6 testing
+    # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for details
+    # move to ubuntu-latest when we drop 3.6
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9, '3.10']
