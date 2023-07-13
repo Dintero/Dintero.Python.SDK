@@ -21,7 +21,7 @@ pip install --upgrade dintero
 
 Create an account through https://onboarding.dintero.com.
 
-Get client credentials from the Dintero Backoffice, see [guide](https://docs.dintero.com/docs/checkout-client/).
+Get client credentials from the Dintero Backoffice, see [guide](https://docs.dintero.com/docs/checkout/checkout-client).
 
 Create a payment profile by going to [Dintero Backoffice](https://backoffice.dintero.com) --> Settings --> Payment
 Profiles
