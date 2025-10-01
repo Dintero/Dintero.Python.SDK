@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.0.9 - 2025-10-01
+* [#16](https://github.com/Dintero/Dintero.Python.SDK/issues/16) Fix bug in session validation
 
 ## 0.0.8 - 2023-07-13
 * Change link to documentation for creating Checkout client
