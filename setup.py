@@ -7,7 +7,9 @@ with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 version_contents = {}
 
-with open(os.path.join(this_directory, "dintero", "version.py"), encoding="utf-8") as f:
+with open(
+    os.path.join(this_directory, "dintero", "version.py"), encoding="utf-8"
+) as f:
     exec(f.read(), version_contents)
 
 setup(
@@ -53,8 +55,6 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
-        "Programming Language :: Python :: 3.14",
-        "Programming Language :: Python :: 3.15",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
