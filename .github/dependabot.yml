@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 7
